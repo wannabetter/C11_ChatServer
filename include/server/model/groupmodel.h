@@ -5,7 +5,6 @@
 #include <string>
 #include <vector>
 
-// 维护群组信息的操作接口方法
 class GroupModel {
 public:
     // 创建群组
