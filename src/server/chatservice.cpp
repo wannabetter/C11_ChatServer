@@ -113,10 +113,8 @@ void ChatService::loginout(const muduo::net::TcpConnectionPtr &conn, nlohmann::j
         }
     }
 
-    // 用户注销，相当于就是下线，在redis中取消订阅通道
     _redis.unsubscribe(userid);
 
-    // 更新用户的状态信息
     User user(userid, "", "", "offline");
     _userModel.updateState(user);
 }
@@ -182,20 +180,18 @@ void ChatService::oneChat(const muduo::net::TcpConnectionPtr &conn, nlohmann::js
         std::lock_guard<std::mutex> lock(_connMutex);
         auto it = _userConnMap.find(toid);
         if (it != _userConnMap.end()) {
-            // toid在线，转发消息   服务器主动推送消息给toid用户
+
             it->second->send(js.dump());
             return;
         }
     }
 
-    // 查询toid是否在线
     User user = _userModel.query(toid);
     if (user.getState() == "online") {
         _redis.publish(toid, js.dump());
         return;
     }
 
-    // toid不在线，存储离线消息
     _offlineMsgModel.insert(toid, js.dump());
 }
 
@@ -211,22 +207,18 @@ void ChatService::createGroup(const muduo::net::TcpConnectionPtr &conn, nlohmann
     std::string name = js["groupname"];
     std::string desc = js["groupdesc"];
 
-    // 存储新创建的群组信息
     Group group(-1, name, desc);
     if (_groupModel.createGroup(group)) {
-        // 存储群组创建人信息
         _groupModel.addGroup(userid, group.getId(), "creator");
     }
 }
 
-// 加入群组业务
 void ChatService::addGroup(const muduo::net::TcpConnectionPtr &conn, nlohmann::json &js, muduo::Timestamp time) {
     int userid = js["id"].get<int>();
     int groupid = js["groupid"].get<int>();
     _groupModel.addGroup(userid, groupid, "normal");
 }
 
-// 群组聊天业务
 void ChatService::groupChat(const muduo::net::TcpConnectionPtr &conn, nlohmann::json &js, muduo::Timestamp time) {
     int userid = js["id"].get<int>();
     int groupid = js["groupid"].get<int>();
@@ -235,15 +227,15 @@ void ChatService::groupChat(const muduo::net::TcpConnectionPtr &conn, nlohmann::
     for (int id: useridVec) {
         auto it = _userConnMap.find(id);
         if (it != _userConnMap.end()) {
-            // 转发群消息
+
             it->second->send(js.dump());
         } else {
-            // 查询toid是否在线
+
             User user = _userModel.query(id);
             if (user.getState() == "online") {
                 _redis.publish(id, js.dump());
             } else {
-                // 存储离线群消息
+
                 _offlineMsgModel.insert(id, js.dump());
             }
         }
@@ -258,6 +250,5 @@ void ChatService::handleRedisSubscribeMessage(int userid, std::string msg) {
         return;
     }
 
-    // 存储该用户的离线消息
     _offlineMsgModel.insert(userid, msg);
 }
