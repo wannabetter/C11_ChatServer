@@ -1,6 +1,3 @@
-//
-// Created by DELL on 2024/1/21.
-//
 #include "public.h"
 #include <vector>
 #include "server/chatservice.h"

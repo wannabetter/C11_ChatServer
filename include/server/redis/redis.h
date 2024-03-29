@@ -1,7 +1,3 @@
-//
-// Created by DELL on 2024/3/23.
-//
-
 #ifndef CHATSERVER_REDIS_H
 #define CHATSERVER_REDIS_H
 
@@ -31,7 +27,7 @@ private:
     redisContext *_publish_context;
 
     redisContext *_subcribe_context;
-    
+
     std::function<void(int, std::string)> _notify_message_handler;
 };
 

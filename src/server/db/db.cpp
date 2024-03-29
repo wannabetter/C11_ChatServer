@@ -1,6 +1,3 @@
-//
-// Created by DELL on 2024/1/22.
-//
 #include <string>
 #include <mysql/mysql.h>
 #include "server/db/db.h"

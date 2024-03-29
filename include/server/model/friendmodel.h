@@ -1,7 +1,3 @@
-//
-// Created by DELL on 2024/3/22.
-//
-
 #ifndef CHATSERVER_FRIENDMODEL_H
 #define CHATSERVER_FRIENDMODEL_H
 

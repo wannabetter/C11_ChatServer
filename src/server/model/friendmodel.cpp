@@ -1,7 +1,3 @@
-//
-// Created by DELL on 2024/1/22.
-//
-
 #include "server/db/db.h"
 #include "server/model/friendmodel.h"
 

@@ -1,7 +1,3 @@
-//
-// Created by DELL on 2024/1/21.
-//
-
 #include "server/db/db.h"
 #include "server/model/groupmodel.h"
 

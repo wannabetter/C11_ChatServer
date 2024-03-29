@@ -1,7 +1,3 @@
-//
-// Created by DELL on 2024/1/23.
-//
-
 #include <thread>
 #include <iostream>
 #include "server/redis/redis.h"

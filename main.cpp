@@ -1,6 +1,3 @@
-//
-// Created by DELL on 2024/1/21.
-//
 #include <signal.h>
 #include <iostream>
 #include "server/chatserver.h"

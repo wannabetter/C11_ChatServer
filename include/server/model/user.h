@@ -1,7 +1,3 @@
-//
-// Created by DELL on 2024/3/22.
-//
-
 #ifndef CHATSERVER_USER_H
 #define CHATSERVER_USER_H
 
