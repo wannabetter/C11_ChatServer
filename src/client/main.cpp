@@ -240,7 +240,7 @@ void doLoginResponse(json &responsejs) {
 void readTaskHandler(int clientfd) {
     for (;;) {
         char buffer[1024] = {0};
-        int len = recv(clientfd, buffer, 1024, 0);  // 阻塞了
+        int len = recv(clientfd, buffer, 1024, 0);
         if (-1 == len || 0 == len) {
             close(clientfd);
             exit(-1);
