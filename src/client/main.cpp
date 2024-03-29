@@ -74,8 +74,8 @@ int main(int argc, char **argv) {
 
     sem_init(&rwsem, 0, 0);
 
-    std::thread readTask(readTaskHandler, clientfd); // pthread_create
-    readTask.detach();                               // pthread_detach
+    std::thread readTask(readTaskHandler, clientfd); 
+    readTask.detach();                               
 
     for (;;) {
 
