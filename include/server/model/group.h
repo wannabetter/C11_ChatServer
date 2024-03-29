@@ -5,7 +5,6 @@
 #include <vector>
 #include "groupuser.h"
 
-// User表的ORM类
 class Group {
 public:
     Group(int id = -1, std::string name = "", std::string desc = "") {
