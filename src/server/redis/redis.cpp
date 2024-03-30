@@ -66,7 +66,6 @@ bool Redis::subscribe(int channel) {
             return false;
         }
     }
-    // redisGetReply
 
     return true;
 }
